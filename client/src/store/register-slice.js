@@ -3,13 +3,12 @@ import { createSlice } from '@reduxjs/toolkit'
 const registerSlice = createSlice({
   name: 'register',
   initialState: {
-    email: '',
+    username: '',
     password: '',
     rePassword: '',
-    isLoading: true,
     errorMessage: '',
     error: {
-      email: false,
+      username: false,
       password: false,
       rePassword: false,
     },

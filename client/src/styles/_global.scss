@@ -115,6 +115,12 @@ a.btn-primary-outline {
   cursor: pointer;
 }
 
+.btn-disabled {
+  background-color: #bbb;
+  color: $color-light;
+  cursor: initial;
+}
+
 .btn-sm {
   padding: 0.5em 1em;
 }

@@ -9,7 +9,7 @@ const Sidebar = () => {
 
         return (
           <section key={index}>
-            <h3 className='sidebar__title'>{title}</h3>
+            <p className='sidebar__title text--bold'>{title}</p>
             <ul className='sidebar__list mt-4'>
               <SidebarMenu content={content} />
             </ul>

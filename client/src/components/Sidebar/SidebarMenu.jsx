@@ -16,7 +16,11 @@ const SidebarMenu = (props) => {
         return (
           <React.Fragment key={index}>
             {allowedRoles.includes(auth?.roles) ? (
-              <li className='sidebar__item'>
+              <li
+                className={`sidebar__item${
+                  location.pathname === link ? ' active' : ''
+                }`}
+              >
                 {icon}
                 <Link to={link}>{name}</Link>
               </li>

@@ -11,16 +11,16 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const registerState = useSelector((state) => state.register)
-  const { email, password, rePassword, errorMessage, error } = registerState
+  const { username, password, rePassword, errorMessage, error } = registerState
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (email) {
+    if (username) {
       dispatch(
         registerAction.setError({
-          field: 'email',
-          value: !REGEX.email.test(email),
+          field: 'username',
+          value: !REGEX.username.test(username),
         })
       )
     }
@@ -56,22 +56,27 @@ const Register = () => {
     setIsLoading(true)
 
     for (const properties in error) {
-      if (error[properties]) return
+      if (error[properties]) {
+        setIsLoading(false)
+        return
+      }
     }
 
     try {
       const response = await axios.post(
         '/api/register',
-        JSON.stringify({ email, password }),
+        JSON.stringify({ username, password }),
         {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true,
         }
       )
+      console.log(response)
       setModalIsOpen(true)
       dispatch(registerAction.clearForm())
       setIsLoading(false)
     } catch (err) {
+      console.error(err)
       setIsLoading(false)
       if (!err?.response) {
         dispatch(
@@ -91,15 +96,9 @@ const Register = () => {
     }
   }
 
-  if (isLoading)
-    return (
-      <section className='register'>
-        <Spinner />
-      </section>
-    )
-
   return (
     <section className='register'>
+      <Spinner isLoading={isLoading} />
       <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
         <div className='modal__content--default'>
           <p className='text--center'>Registration success</p>
@@ -109,80 +108,89 @@ const Register = () => {
         </div>
       </Modal>
       <div className='register__container'>
-        <p className='text--center text--bold text--8'>Register</p>
+        <p className='text--bold text--8'>Register</p>
         {errorMessage ? (
           <p className='text--danger mt-4'>{errorMessage}</p>
         ) : null}
 
         <form className='register__form' onSubmit={handleSubmit}>
-          <div className='register__input-wrapper'>
-            <label htmlFor='email' className='text--light'>
-              Username
-            </label>
-            <input
-              id='email'
-              type='text'
-              className={`register__input${
-                error.email ? ' register__input--error' : ''
-              }`}
-              placeholder='username'
-              value={email}
-              onChange={(e) => handleChange('email', e.target.value)}
-            />
+          <div className='register__form-wrapper'>
+            <div className='register__input-wrapper'>
+              <label htmlFor='username' className='text--light'>
+                Username
+              </label>
+              <input
+                id='username'
+                type='text'
+                className={`register__input${
+                  error.username ? ' register__input--error' : ''
+                }`}
+                placeholder='username'
+                value={username}
+                onChange={(e) => handleChange('username', e.target.value)}
+              />
+            </div>
+
+            {error.username ? (
+              <p className='text--light text--3'>
+                4 to 24 alphanumeric no space (a-z A-Z 0-9).
+              </p>
+            ) : null}
+
+            <div className='register__input-wrapper'>
+              <label htmlFor='password' className='text--light'>
+                Password
+              </label>
+              <input
+                id='password'
+                type='password'
+                className={`register__input${
+                  error.password ? ' register__input--error' : ''
+                }`}
+                placeholder='password'
+                value={password}
+                onChange={(e) => handleChange('password', e.target.value)}
+              />
+            </div>
+
+            {error.password ? (
+              <p className='text--light text--3'>
+                5 to 24 characters. Must include uppercase and lowercase
+                letters, a number.
+              </p>
+            ) : null}
+
+            <div className='register__input-wrapper'>
+              <label htmlFor='re-password' className='text--light'>
+                Re-type Password
+              </label>
+              <input
+                id='re-password'
+                type='password'
+                className={`register__input${
+                  error.rePassword ? ' register__input--error' : ''
+                }`}
+                placeholder='re-type password'
+                value={rePassword}
+                onChange={(e) => handleChange('rePassword', e.target.value)}
+              />
+            </div>
+
+            {error.rePassword ? (
+              <p className='text--light text--3'>
+                Must match with the password field
+              </p>
+            ) : null}
           </div>
-
-          {error.email ? (
-            <p className='text--light text--3'>Invalid email format</p>
-          ) : null}
-
-          <div className='register__input-wrapper'>
-            <label htmlFor='password' className='text--light'>
-              Password
-            </label>
-            <input
-              id='password'
-              type='password'
-              className={`register__input${
-                error.password ? ' register__input--error' : ''
-              }`}
-              placeholder='password'
-              value={password}
-              onChange={(e) => handleChange('password', e.target.value)}
-            />
-          </div>
-
-          {error.password ? (
-            <p className='text--light text--3'>
-              5 to 24 characters. Must include uppercase and lowercase letters,
-              a number and a special characters. (!, @, #, $, %)
-            </p>
-          ) : null}
-
-          <div className='register__input-wrapper'>
-            <label htmlFor='re-password' className='text--light'>
-              Re-type Password
-            </label>
-            <input
-              id='re-password'
-              type='password'
-              className={`register__input${
-                error.rePassword ? ' register__input--error' : ''
-              }`}
-              placeholder='re-type password'
-              value={rePassword}
-              onChange={(e) => handleChange('rePassword', e.target.value)}
-            />
-          </div>
-
-          {error.rePassword ? (
-            <p className='text--light text--3'>
-              Must match with the password field
-            </p>
-          ) : null}
 
           <button
             type='submit'
-            className='btn btn-lg btn-primary text--bold mt-4'
+            className={`btn text--bold mt-4${
+              error.username || error.password || error.rePassword
+                ? ' btn-disabled'
+                : ' btn-primary'
+            }`}
+            disabled={error.username || error.password || error.rePassword}
           >
             Register
           </button>

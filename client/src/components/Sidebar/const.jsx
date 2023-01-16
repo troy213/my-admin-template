@@ -25,7 +25,7 @@ export const SIDEBAR_NAVIGATION = [
     ],
   },
   {
-    title: 'Staff',
+    title: 'Account',
     content: [
       {
         icon: <ManageAccountsIcon className='sidebar-icon' />,
