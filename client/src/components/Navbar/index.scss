@@ -1,0 +1,39 @@
+@import '../../styles/variables';
+
+.navbar {
+  width: 100%;
+  z-index: 99;
+  position: sticky;
+  background-color: $color-primary;
+  color: $color-light;
+  top: 0;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+
+  &__wrapper {
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    color: $color-light;
+
+    &:visited,
+    &:link {
+      color: $color-light;
+    }
+  }
+
+  &__right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

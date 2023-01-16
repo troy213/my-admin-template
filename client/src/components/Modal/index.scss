@@ -1,0 +1,43 @@
+.modal {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.3);
+  height: 100%;
+  width: 100%;
+  min-width: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+
+  &__container {
+    position: relative;
+    margin: 0 2rem;
+    background-color: $color-light;
+    border-radius: 1rem;
+    min-height: 100px;
+    min-width: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    z-index: 4;
+  }
+
+  &__close {
+    position: absolute;
+    top: 0.5em;
+    right: 1em;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: $color-dark;
+    transition: color 500ms ease-in-out;
+  }
+
+  &__content--default {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
