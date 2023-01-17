@@ -99,6 +99,15 @@ a.btn-primary-outline {
   }
 }
 
+.btn-warning {
+  background-color: $color-warning;
+  color: $color-light;
+
+  &:hover {
+    background-color: $color-warning-light;
+  }
+}
+
 .btn-danger {
   background-color: $color-danger;
   color: $color-light;

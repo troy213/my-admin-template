@@ -1,9 +1,7 @@
+import { Widget } from '../../components'
+
 const Dashboard = () => {
-  return (
-    <section className='dashboard'>
-      <h1>Dashboard</h1>
-    </section>
-  )
+  return <Widget title='Dashboard'></Widget>
 }
 
 export default Dashboard

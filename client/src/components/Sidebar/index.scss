@@ -2,12 +2,15 @@
   flex: 1;
   background-color: $color-primary;
   height: calc(100vh - 74px);
+  position: sticky;
+  top: 74px;
   min-width: fit-content;
   max-width: max-content;
   padding: 2rem;
   color: $color-light;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   gap: 1rem;
 
   &__list {

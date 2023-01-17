@@ -29,7 +29,7 @@ export const SIDEBAR_NAVIGATION = [
     content: [
       {
         icon: <ManageAccountsIcon className='sidebar-icon' />,
-        link: '/staff',
+        link: '/manage',
         name: 'Manage',
         allowedRoles: [1],
       },

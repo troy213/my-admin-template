@@ -1,0 +1,29 @@
+.table {
+  border: 1px solid rgba($color: $color-primary-dark, $alpha: 0.2);
+  border-collapse: collapse;
+
+  & th {
+    background-color: $color-primary;
+    color: $color-light;
+    padding: 0.5rem;
+  }
+
+  & tr:nth-child(even) {
+    background-color: rgba($color: $color-primary-light, $alpha: 0.05);
+  }
+
+  & tr:hover {
+    background-color: rgba($color: $color-primary-light, $alpha: 0.1);
+  }
+
+  & td {
+    padding: 0.5rem;
+    text-align: center;
+  }
+
+  &__btn-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+}

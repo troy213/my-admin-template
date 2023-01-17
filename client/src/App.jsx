@@ -3,7 +3,15 @@ import { Routes, Route } from 'react-router-dom'
 import { Layout, ProtectedLayout } from './components'
 import PersistLogin from './utils/auth/PersistLogin'
 import RequireAuth from './utils/auth/RequireAuth'
-import { Login, Register, Unauthorized, Dashboard, NotFound } from './pages'
+import {
+  ChangePassword,
+  Dashboard,
+  Login,
+  Manage,
+  NotFound,
+  Register,
+  Unauthorized,
+} from './pages'
 
 const ROLES = {
   admin: 1,
@@ -27,9 +35,11 @@ const App = () => {
               }
             >
               <Route path='/' element={<Dashboard />} />
+              <Route path='change-password' element={<ChangePassword />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[ROLES.admin]} />}>
+              <Route path='manage' element={<Manage />} />
               <Route path='register' element={<Register />} />
             </Route>
           </Route>

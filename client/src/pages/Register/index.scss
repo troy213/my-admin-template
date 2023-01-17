@@ -1,22 +1,4 @@
 .register {
-  display: flex;
-  flex: 4;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem;
-  background-color: $color-light;
-
-  &__container {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    width: 100%;
-    gap: 1rem;
-    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 1rem;
-  }
-
   &__form {
     width: 100%;
   }

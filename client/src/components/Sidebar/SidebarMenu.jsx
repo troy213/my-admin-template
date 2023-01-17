@@ -22,7 +22,9 @@ const SidebarMenu = (props) => {
                 }`}
               >
                 {icon}
-                <Link to={link}>{name}</Link>
+                <Link to={link} className='text--3'>
+                  {name}
+                </Link>
               </li>
             ) : null}
           </React.Fragment>
