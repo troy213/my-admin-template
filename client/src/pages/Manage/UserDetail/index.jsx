@@ -113,15 +113,13 @@ const UserDetail = () => {
         }
       )
 
-      toast.success('Update success!', {
-        position: 'top-center',
-      })
+      toast.success('Update success!')
       navigate(rootPath)
     } catch (err) {
       if (!err?.response) {
-        console.error('No Server Response')
+        toast.error('No Server Response')
       } else {
-        console.error(err.response?.data?.message)
+        toast.error(err.response?.data?.message)
       }
     }
   }

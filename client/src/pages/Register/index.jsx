@@ -109,7 +109,7 @@ const Register = () => {
         <form className='register__form' onSubmit={handleSubmit}>
           <div className='register__form-wrapper'>
             <div className='register__input-wrapper'>
-              <label htmlFor='username' className='text--light'>
+              <label htmlFor='username' className='text--3 text--light'>
                 Username
               </label>
               <input
@@ -131,7 +131,7 @@ const Register = () => {
             ) : null}
 
             <div className='register__input-wrapper'>
-              <label htmlFor='password' className='text--light'>
+              <label htmlFor='password' className='text--3 text--light'>
                 Password
               </label>
               <input
@@ -148,13 +148,13 @@ const Register = () => {
 
             {error.password ? (
               <p className='text--light text--3'>
-                5 to 24 characters. Must include uppercase and lowercase
-                letters, a number.
+                5 to 24 characters. Must include uppercase, lowercase letters
+                and a number.
               </p>
             ) : null}
 
             <div className='register__input-wrapper'>
-              <label htmlFor='re-password' className='text--light'>
+              <label htmlFor='re-password' className='text--3 text--light'>
                 Re-type Password
               </label>
               <input

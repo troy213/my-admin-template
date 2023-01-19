@@ -6,7 +6,7 @@ import { Navbar, Sidebar } from '..'
 const ProtectedLayout = () => {
   return (
     <div className='protected-layout'>
-      <ToastContainer />
+      <ToastContainer position='top-center' />
       <Navbar />
       <div className='protected-layout__container'>
         <Sidebar />
