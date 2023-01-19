@@ -6,7 +6,7 @@ import useAxiosPrivate from '../../../hooks/useAxiosPrivate'
 import { editUserAction } from '../../../store/users/edit-user-slice'
 
 import { Form, Modal, Spinner, Widget } from '../../../components'
-import { checkEmptyField } from '../../../utils'
+import { checkValidity } from '../../../utils'
 import { REGEX } from '../../../data/const'
 
 const EDIT_USER_FORM = [
@@ -87,15 +87,9 @@ const UserDetail = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    let isValid = checkEmptyField(editUserState, editUserAction, dispatch, [
-      'error',
-      'id',
-    ])
-
-    if (!REGEX.username.test(editUserState.username)) {
-      dispatch(editUserAction.setError({ field: 'username', value: true }))
-      isValid = false
-    }
+    let isValid = checkValidity(editUserState, editUserAction, dispatch, {
+      username: REGEX.username,
+    })
 
     if (!isValid) return
 

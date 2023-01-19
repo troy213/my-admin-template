@@ -1,3 +1,3 @@
-import checkEmptyField from './checkEmptyField'
+import checkValidity from './checkValidity'
 
-export { checkEmptyField }
+export { checkValidity }

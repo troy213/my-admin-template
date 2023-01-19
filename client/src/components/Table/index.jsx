@@ -1,9 +1,11 @@
 import { Link, useLocation } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth'
 
 const Table = (props) => {
   const { schema, handleDelete, data = [] } = props
   const { header, body } = schema
 
+  const { auth } = useAuth()
   const location = useLocation()
 
   if (!data.length)
@@ -38,12 +40,14 @@ const Table = (props) => {
                   <Link to={`${location.pathname}/${id}`}>
                     <button className='btn btn-warning'>Edit</button>
                   </Link>
-                  <button
-                    className='btn btn-danger'
-                    onClick={() => handleDelete(id)}
-                  >
-                    Delete
-                  </button>
+                  {auth.id !== id ? (
+                    <button
+                      className='btn btn-danger'
+                      onClick={() => handleDelete(id)}
+                    >
+                      Delete
+                    </button>
+                  ) : null}
                 </div>
               </td>
             </tr>

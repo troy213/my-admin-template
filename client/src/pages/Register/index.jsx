@@ -7,7 +7,7 @@ import axios from '../../api/axios'
 import { Form, Modal, Spinner, Widget } from '../../components'
 import { REGEX } from '../../data/const'
 import { REGISTER_FORM } from './const'
-import { checkEmptyField } from '../../utils'
+import { checkValidity } from '../../utils'
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -25,18 +25,7 @@ const Register = () => {
     e.preventDefault()
     setIsLoading(true)
 
-    let isValid = checkEmptyField(registerState, registerAction, dispatch, [
-      'error',
-    ])
-
-    if (!REGEX.username.test(registerState.username)) {
-      dispatch(registerAction.setError({ field: 'username', value: true }))
-    }
-
-    if (!REGEX.password.test(registerState.password)) {
-      dispatch(registerAction.setError({ field: 'password', value: true }))
-      isValid = false
-    }
+    let isValid = checkValidity(registerState, registerAction, dispatch, REGEX)
 
     if (registerState.password !== registerState.rePassword) {
       dispatch(registerAction.setError({ field: 'rePassword', value: true }))

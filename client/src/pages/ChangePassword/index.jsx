@@ -9,7 +9,7 @@ import { changePasswordAction } from '../../store/users/change-password-slice'
 import { Form, Modal, Spinner, Widget } from '../../components'
 import { REGEX } from '../../data/const'
 import { CHANGE_PASSWORD_FORM } from './const'
-import { checkEmptyField } from '../../utils'
+import { checkValidity } from '../../utils'
 
 const ChangePassword = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -31,21 +31,12 @@ const ChangePassword = () => {
     e.preventDefault()
     setIsLoading(true)
 
-    let isValid = checkEmptyField(
+    let isValid = checkValidity(
       changePasswordState,
       changePasswordAction,
       dispatch,
-      ['error']
+      { newPassword: REGEX.password }
     )
-
-    //TODO: Need to make a utility function for checking validation
-
-    if (!REGEX.password.test(changePasswordState.newPassword)) {
-      dispatch(
-        changePasswordAction.setError({ field: 'newPassword', value: true })
-      )
-      isValid = false
-    }
 
     if (changePasswordState.newPassword !== changePasswordState.rePassword) {
       dispatch(
@@ -76,6 +67,7 @@ const ChangePassword = () => {
       setIsLoading(false)
       setModalIsOpen(true)
     } catch (err) {
+      setIsLoading(false)
       if (!err?.response) {
         toast.error('No Server Response')
       } else {
@@ -90,13 +82,16 @@ const ChangePassword = () => {
         <Spinner isLoading={isLoading} />
         <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
           <div className='modal__content--default'>
-            <p>Password has been changed successfully</p>
-            <button
-              className='btn btn-primary'
-              onClick={async () => await logout()}
-            >
-              Ok
-            </button>
+            <p>The password has been successfully changed.</p>
+
+            <div className='modal__btn-wrapper'>
+              <button
+                className='btn btn-primary'
+                onClick={async () => await logout()}
+              >
+                Ok
+              </button>
+            </div>
           </div>
         </Modal>
         <Form

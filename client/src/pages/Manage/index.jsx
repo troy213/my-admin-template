@@ -75,7 +75,7 @@ const Manage = () => {
       <Widget title='Manage'>
         <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
           <div className='modal__content--default'>
-            <p>User has been deleted successfully!</p>
+            <p>The user has been successfully deleted.</p>
             <div className='modal__btn-wrapper'>
               <button
                 className='btn btn-primary'
