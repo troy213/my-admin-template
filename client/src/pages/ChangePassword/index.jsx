@@ -8,31 +8,8 @@ import { changePasswordAction } from '../../store/users/change-password-slice'
 
 import { Form, Modal, Spinner, Widget } from '../../components'
 import { REGEX } from '../../data/const'
+import { CHANGE_PASSWORD_FORM } from './const'
 import { checkEmptyField } from '../../utils'
-
-const CHANGE_PASSWORD_FORM = [
-  {
-    id: 'oldPassword',
-    label: 'Old Password',
-    type: 'password',
-    placeholder: 'old password',
-  },
-  {
-    id: 'newPassword',
-    label: 'New password',
-    type: 'password',
-    placeholder: 'new password',
-    helperText:
-      '5 to 24 characters. Must include uppercase ,lowercase letters and a number.',
-  },
-  {
-    id: 'rePassword',
-    label: 'Re-type password',
-    type: 'password',
-    placeholder: 'retype password',
-    helperText: 'Must match with new password field',
-  },
-]
 
 const ChangePassword = () => {
   const [isLoading, setIsLoading] = useState(false)

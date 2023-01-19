@@ -1,72 +1,66 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
 import { registerAction } from '../../store/users/register-slice'
 import axios from '../../api/axios'
 
-import { Modal, Spinner, Widget } from '../../components'
+import { Form, Modal, Spinner, Widget } from '../../components'
 import { REGEX } from '../../data/const'
+import { REGISTER_FORM } from './const'
+import { checkEmptyField } from '../../utils'
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const registerState = useSelector((state) => state.register)
-  const { username, password, rePassword, errorMessage, error } = registerState
-  const isEmpty = !username || !password || !rePassword
-  const isError = error.username || error.password || error.rePassword
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (username) {
-      dispatch(
-        registerAction.setError({
-          field: 'username',
-          value: !REGEX.username.test(username),
-        })
-      )
+    return () => {
+      dispatch(registerAction.clearForm())
     }
-
-    if (password) {
-      dispatch(
-        registerAction.setError({
-          field: 'password',
-          value: !REGEX.password.test(password),
-        })
-      )
-    }
-
-    dispatch(
-      registerAction.setError({
-        field: 'rePassword',
-        value: password !== rePassword,
-      })
-    )
-  }, [registerState])
-
-  const handleChange = (field, value) => {
-    dispatch(registerAction.setInputField({ field, value }))
-  }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
 
-    for (const properties in error) {
-      if (error[properties]) {
-        setIsLoading(false)
-        return
-      }
+    let isValid = checkEmptyField(registerState, registerAction, dispatch, [
+      'error',
+    ])
+
+    if (!REGEX.username.test(registerState.username)) {
+      dispatch(registerAction.setError({ field: 'username', value: true }))
+    }
+
+    if (!REGEX.password.test(registerState.password)) {
+      dispatch(registerAction.setError({ field: 'password', value: true }))
+      isValid = false
+    }
+
+    if (registerState.password !== registerState.rePassword) {
+      dispatch(registerAction.setError({ field: 'rePassword', value: true }))
+      isValid = false
+    }
+
+    if (!isValid) {
+      setIsLoading(false)
+      return toast.error('Invalid data entry')
     }
 
     try {
       const response = await axios.post(
         '/api/register',
-        JSON.stringify({ username, password }),
+        JSON.stringify({
+          username: registerState.username,
+          password: registerState.password,
+        }),
         {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true,
         }
       )
-      console.log(response)
+
       setModalIsOpen(true)
       dispatch(registerAction.clearForm())
       setIsLoading(false)
@@ -74,118 +68,37 @@ const Register = () => {
       console.error(err)
       setIsLoading(false)
       if (!err?.response) {
-        dispatch(
-          registerAction.setInputField({
-            field: 'errorMessage',
-            value: 'No server response',
-          })
-        )
+        toast.error('No server response')
       } else {
-        dispatch(
-          registerAction.setInputField({
-            field: 'errorMessage',
-            value: err.response?.data?.message,
-          })
-        )
+        toast.error(err.response.data?.message)
       }
     }
   }
 
   return (
     <section className='register'>
-      <Widget title='Register' errorMessage={errorMessage}>
+      <Widget title='Register'>
         <Spinner isLoading={isLoading} />
         <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
           <div className='modal__content--default'>
             <p className='text--center'>Registration success</p>
-            <button
-              className='btn btn-primary mt-4'
-              onClick={() => setModalIsOpen(false)}
-            >
-              Ok
-            </button>
+            <div className='modal__btn-wrapper'>
+              <button
+                className='btn btn-primary mt-4'
+                onClick={() => setModalIsOpen(false)}
+              >
+                Ok
+              </button>
+            </div>
           </div>
         </Modal>
-        <form className='register__form' onSubmit={handleSubmit}>
-          <div className='register__form-wrapper'>
-            <div className='register__input-wrapper'>
-              <label htmlFor='username' className='text--3 text--light'>
-                Username
-              </label>
-              <input
-                id='username'
-                type='text'
-                className={`register__input${
-                  error.username ? ' register__input--error' : ''
-                }`}
-                placeholder='username'
-                value={username}
-                onChange={(e) => handleChange('username', e.target.value)}
-              />
-            </div>
-
-            {error.username ? (
-              <p className='text--light text--3'>
-                4 to 24 alphanumeric no space (a-z A-Z 0-9).
-              </p>
-            ) : null}
-
-            <div className='register__input-wrapper'>
-              <label htmlFor='password' className='text--3 text--light'>
-                Password
-              </label>
-              <input
-                id='password'
-                type='password'
-                className={`register__input${
-                  error.password ? ' register__input--error' : ''
-                }`}
-                placeholder='password'
-                value={password}
-                onChange={(e) => handleChange('password', e.target.value)}
-              />
-            </div>
-
-            {error.password ? (
-              <p className='text--light text--3'>
-                5 to 24 characters. Must include uppercase, lowercase letters
-                and a number.
-              </p>
-            ) : null}
-
-            <div className='register__input-wrapper'>
-              <label htmlFor='re-password' className='text--3 text--light'>
-                Re-type Password
-              </label>
-              <input
-                id='re-password'
-                type='password'
-                className={`register__input${
-                  error.rePassword ? ' register__input--error' : ''
-                }`}
-                placeholder='re-type password'
-                value={rePassword}
-                onChange={(e) => handleChange('rePassword', e.target.value)}
-              />
-            </div>
-
-            {error.rePassword ? (
-              <p className='text--light text--3'>
-                Must match with the password field
-              </p>
-            ) : null}
-          </div>
-
-          <button
-            type='submit'
-            className={`btn text--bold mt-4${
-              isEmpty || isError ? ' btn-disabled' : ' btn-primary'
-            }`}
-            disabled={isEmpty || isError}
-          >
-            Register
-          </button>
-        </form>
+        <Form
+          schema={REGISTER_FORM}
+          state={registerState}
+          action={registerAction}
+          onSubmit={handleSubmit}
+          isCancelable={false}
+        />
       </Widget>
     </section>
   )

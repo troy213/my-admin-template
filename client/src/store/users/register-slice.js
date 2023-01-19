@@ -6,7 +6,6 @@ const registerSlice = createSlice({
     username: '',
     password: '',
     rePassword: '',
-    errorMessage: '',
     error: {
       username: false,
       password: false,
@@ -22,7 +21,7 @@ const registerSlice = createSlice({
     },
     clearForm(state) {
       for (const stateObj in state) {
-        const EXCEPTION = ['error', 'isLoading']
+        const EXCEPTION = ['error']
         if (EXCEPTION.includes(stateObj)) continue
 
         state[stateObj] = ''

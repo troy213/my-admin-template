@@ -63,9 +63,9 @@ const Manage = () => {
       setUsers(newData)
     } catch (err) {
       if (!err?.response) {
-        console.error(err)
+        toast.error('No server response')
       } else {
-        console.error(err)
+        toast.error(err)
       }
     }
   }
@@ -76,12 +76,14 @@ const Manage = () => {
         <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
           <div className='modal__content--default'>
             <p>User has been deleted successfully!</p>
-            <button
-              className='btn btn-primary'
-              onClick={() => setModalIsOpen(false)}
-            >
-              Ok
-            </button>
+            <div className='modal__btn-wrapper'>
+              <button
+                className='btn btn-primary'
+                onClick={() => setModalIsOpen(false)}
+              >
+                Ok
+              </button>
+            </div>
           </div>
         </Modal>
         <Spinner isLoading={isLoading} />
