@@ -1,12 +1,8 @@
-.register {
+.user-detail {
   flex: 4;
   width: 100%;
   padding: 2rem;
   background-color: $color-light;
-
-  &__form {
-    width: 100%;
-  }
 
   &__form-wrapper {
     display: flex;

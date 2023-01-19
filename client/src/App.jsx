@@ -11,6 +11,7 @@ import {
   NotFound,
   Register,
   Unauthorized,
+  UserDetail,
 } from './pages'
 
 const ROLES = {
@@ -40,6 +41,7 @@ const App = () => {
 
             <Route element={<RequireAuth allowedRoles={[ROLES.admin]} />}>
               <Route path='manage' element={<Manage />} />
+              <Route path='manage/:id' element={<UserDetail />} />
               <Route path='register' element={<Register />} />
             </Route>
           </Route>

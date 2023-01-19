@@ -7,6 +7,7 @@ const SidebarMenu = (props) => {
 
   const { auth } = useAuth()
   const location = useLocation()
+  const rootPath = `/${location.pathname.split('/')[1]}`
 
   return (
     <>
@@ -17,9 +18,7 @@ const SidebarMenu = (props) => {
           <React.Fragment key={index}>
             {allowedRoles.includes(auth?.roles) ? (
               <li
-                className={`sidebar__item${
-                  location.pathname === link ? ' active' : ''
-                }`}
+                className={`sidebar__item${rootPath === link ? ' active' : ''}`}
               >
                 {icon}
                 <Link to={link} className='text--3'>

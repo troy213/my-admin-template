@@ -1,12 +1,11 @@
 .widget {
   display: flex;
-  flex: 4;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding: 2rem;
   background-color: $color-light;
   overflow-x: hidden;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
 
   &__container {
     display: flex;
@@ -14,8 +13,6 @@
     padding: 2rem;
     width: 100%;
     gap: 1rem;
-    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 1rem;
     overflow-x: auto;
   }
 }

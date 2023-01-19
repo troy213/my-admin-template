@@ -4,7 +4,19 @@ import { Spinner, Modal, Table, Widget } from '../../components'
 
 const USER_TABLE_SCHEMA = {
   header: ['No', 'Username', 'Roles', 'Action'],
-  body: ['username', 'roles'],
+  body: [
+    {
+      field: 'username',
+    },
+    {
+      field: 'roles',
+      isEnum: true,
+      enumData: {
+        1: 'Admin',
+        2: 'Staff',
+      },
+    },
+  ],
 }
 
 const Manage = () => {
@@ -59,25 +71,27 @@ const Manage = () => {
   }
 
   return (
-    <Widget title='Manage'>
-      <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
-        <div className='modal__content--default'>
-          <p>User has been deleted successfully!</p>
-          <button
-            className='btn btn-sm btn-primary'
-            onClick={() => setModalIsOpen(false)}
-          >
-            Ok
-          </button>
-        </div>
-      </Modal>
-      <Spinner isLoading={isLoading} />
-      <Table
-        schema={USER_TABLE_SCHEMA}
-        data={users}
-        handleDelete={handleDelete}
-      />
-    </Widget>
+    <section className='manage'>
+      <Widget title='Manage'>
+        <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+          <div className='modal__content--default'>
+            <p>User has been deleted successfully!</p>
+            <button
+              className='btn btn-primary'
+              onClick={() => setModalIsOpen(false)}
+            >
+              Ok
+            </button>
+          </div>
+        </Modal>
+        <Spinner isLoading={isLoading} />
+        <Table
+          schema={USER_TABLE_SCHEMA}
+          data={users}
+          handleDelete={handleDelete}
+        />
+      </Widget>
+    </section>
   )
 }
 

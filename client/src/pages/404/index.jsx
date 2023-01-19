@@ -15,7 +15,7 @@ const NotFound = () => {
           </p>
         </div>
         <div className='not-found__btn-wrapper'>
-          <button className='btn btn-outline-light btn-sm' onClick={goBack}>
+          <button className='btn btn-outline-light' onClick={goBack}>
             Back
           </button>
         </div>

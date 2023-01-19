@@ -2,6 +2,7 @@
 @import './styles/config';
 @import './styles/global';
 
+@import './components/Form/';
 @import './components/Modal/';
 @import './components/Navbar/';
 @import './components/ProtectedLayout/';
@@ -11,7 +12,10 @@
 @import './components/Widget/';
 
 @import './pages/404/';
+@import './pages/ChangePassword/';
 @import './pages/Dashboard/';
 @import './pages/Login/';
+@import './pages/Manage/';
+@import './pages/Manage/UserDetail/';
 @import './pages/Register/';
 @import './pages/Unauthorized/';

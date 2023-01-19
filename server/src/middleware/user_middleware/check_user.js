@@ -7,9 +7,9 @@ const checkUser = (req, res, next) => {
     if (err) return res.status(500).json({ success: false, message: err })
     if (result.length > 0) {
       res.locals.id = result[0].id
-      res.locals.email = result[0].email
+      res.locals.username = result[0].username
       res.locals.password = result[0].password
-      res.locals.name = result[0].name
+      res.locals.roles = result[0].roles
       next()
     } else {
       return res.status(400).json({ success: false, message: 'User not found' })

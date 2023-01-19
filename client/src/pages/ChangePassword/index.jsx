@@ -1,7 +1,11 @@
 import { Widget } from '../../components'
 
 const ChangePassword = () => {
-  return <Widget title='Change Password'></Widget>
+  return (
+    <section className='change-password'>
+      <Widget title='Change Password'></Widget>
+    </section>
+  )
 }
 
 export default ChangePassword

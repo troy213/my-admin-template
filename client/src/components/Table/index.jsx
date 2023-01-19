@@ -1,6 +1,10 @@
+import { Link, useLocation } from 'react-router-dom'
+
 const Table = (props) => {
   const { schema, handleDelete, data = [] } = props
   const { header, body } = schema
+
+  const location = useLocation()
 
   if (!data.length)
     return <p className='text--center text--light'>There is no data</p>
@@ -22,13 +26,20 @@ const Table = (props) => {
             <tr key={index}>
               <td>{index + 1}</td>
               {body.map((properties, index) => {
-                return <td key={index}>{content[properties]}</td>
+                const { field, isEnum = false, enumData = null } = properties
+                return (
+                  <td key={index}>
+                    {isEnum ? enumData[content[field]] : content[field]}
+                  </td>
+                )
               })}
               <td>
                 <div className='table__btn-wrapper'>
-                  <button className='btn btn-sm btn-warning'>Edit</button>
+                  <Link to={`${location.pathname}/${id}`}>
+                    <button className='btn btn-warning'>Edit</button>
+                  </Link>
                   <button
-                    className='btn btn-sm btn-danger'
+                    className='btn btn-danger'
                     onClick={() => handleDelete(id)}
                   >
                     Delete

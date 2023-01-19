@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { loginAction } from '../../store/login-slice'
+import { loginAction } from '../../store/users/login-slice'
 import axios from '../../api/axios'
 import useAuth from '../../hooks/useAuth'
 

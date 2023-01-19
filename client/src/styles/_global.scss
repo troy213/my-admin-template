@@ -50,7 +50,6 @@
   padding: 0.5em 1em;
   border: none;
   border-radius: 0.5em;
-  font-size: 1rem;
   cursor: pointer;
 
   &:hover {
@@ -68,7 +67,7 @@
 }
 
 .btn-primary-outline {
-  padding: 0.75em 1.25em;
+  padding: 0.5em 1em;
   background-color: transparent;
   color: $color-primary;
   border: 4px solid $color-primary;
@@ -80,11 +79,11 @@
 }
 
 a.btn-primary-outline {
-  padding: 0.625em 1.125em;
+  padding: 0.5em 1em;
 }
 
 .btn-outline-light {
-  padding: 0.75em 1.25em;
+  padding: 0.5em 1em;
   background-color: transparent;
   color: $color-light;
   border: 4px solid $color-light;
@@ -128,14 +127,6 @@ a.btn-primary-outline {
   background-color: #bbb;
   color: $color-light;
   cursor: initial;
-}
-
-.btn-sm {
-  padding: 0.5em 1em;
-}
-
-.btn-lg {
-  padding: 1em 1.5em;
 }
 
 .link-danger,

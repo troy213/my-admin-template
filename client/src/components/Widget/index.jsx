@@ -2,7 +2,7 @@ const Widget = (props) => {
   const { title, children, errorMessage = '' } = props
 
   return (
-    <section className='widget'>
+    <div className='widget'>
       <div className='widget__container'>
         <p className='text--6 text--bold'>{title}</p>
         {errorMessage ? (
@@ -11,7 +11,7 @@ const Widget = (props) => {
 
         {children}
       </div>
-    </section>
+    </div>
   )
 }
 

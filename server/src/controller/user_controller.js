@@ -8,8 +8,18 @@ const {
 } = require('../token')
 
 const userGet = (req, res) => {
-  const sql = 'SELECT * FROM users'
+  const sql = 'SELECT id, username, roles FROM users ORDER BY username ASC'
   db.query(sql, (err, result) => {
+    if (err) return res.status(500).json({ success: false, message: err })
+    return res.status(200).json({ success: true, data: result })
+  })
+}
+
+const userGetId = (req, res) => {
+  const { id } = req.params
+
+  const sql = 'SELECT id, username, roles FROM users WHERE id =?'
+  db.query(sql, id, (err, result) => {
     if (err) return res.status(500).json({ success: false, message: err })
     return res.status(200).json({ success: true, data: result })
   })
@@ -67,6 +77,7 @@ const userPasswordPut = async (req, res) => {
 
 module.exports = {
   userGet,
+  userGetId,
   updateRefreshToken,
   userDelete,
   userPasswordPut,

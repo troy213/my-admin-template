@@ -1,13 +1,4 @@
-.register {
-  flex: 4;
-  width: 100%;
-  padding: 2rem;
-  background-color: $color-light;
-
-  &__form {
-    width: 100%;
-  }
-
+.form {
   &__form-wrapper {
     display: flex;
     flex-direction: column;
@@ -38,5 +29,10 @@
     &--error {
       border-color: $color-danger;
     }
+  }
+
+  &__btn-wrapper {
+    display: flex;
+    gap: 0.5rem;
   }
 }

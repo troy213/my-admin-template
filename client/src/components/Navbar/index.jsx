@@ -28,7 +28,7 @@ const Navbar = () => {
             <PersonIcon />
             {auth?.username}
           </span>
-          <button className='btn btn-outline-light btn-sm' onClick={signOut}>
+          <button className='btn btn-outline-light' onClick={signOut}>
             Logout
           </button>
         </div>

@@ -1,3 +1,4 @@
+import Form from './Form'
 import Layout from './Layout'
 import Modal from './Modal'
 import Navbar from './Navbar'
@@ -8,6 +9,7 @@ import Table from './Table'
 import Widget from './Widget'
 
 export {
+  Form,
   Layout,
   Modal,
   Navbar,
