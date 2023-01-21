@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite --open --port 3000",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "coverage": "vitest --coverage"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

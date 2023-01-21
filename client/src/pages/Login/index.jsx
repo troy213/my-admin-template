@@ -55,10 +55,11 @@ const Login = () => {
           })
         )
       } else {
+        const { data } = err.response
         dispatch(
           loginAction.setInputField({
             field: 'errorMessage',
-            value: err.response.data?.message,
+            value: data.message.code ?? data.message,
           })
         )
       }
